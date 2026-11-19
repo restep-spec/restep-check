@@ -1,0 +1,19 @@
+{
+  "name": "restep-check",
+  "version": "0.4.0",
+  "description": "Conformance checker for Restep 1 APIs (core, query, writes, oauth) and validator for its JSON Schemas",
+  "keywords": ["restep", "rest", "api", "conformance", "http", "json-schema", "linter"],
+  "homepage": "https://restep.wubytes.com/tools/",
+  "repository": { "type": "git", "url": "git+https://github.com/restep-spec/restep-check.git" },
+  "bugs": "https://github.com/restep-spec/restep-check/issues",
+  "scripts": { "test": "node test/test.mjs" },
+  "license": "MIT",
+  "type": "module",
+  "bin": { "restep-check": "restep-check.mjs" },
+  "files": ["restep-check.mjs", "schema/"],
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
+}
