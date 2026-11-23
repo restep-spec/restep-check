@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
 const inSite = existsSync(join(here, 'tabla.mjs'));
 const SERVER = readFileSync(inSite ? join(here, '../../public/ref/restep-server.mjs') : join(here, 'restep-server.mjs'), 'utf8');
-const CHECKER = inSite ? join(here, '../../public/tools/restep-check.mjs') : join(here, '../restep-check.mjs');
+const CHECKER = inSite ? join(here, 'restep-check.mjs') : join(here, '../restep-check.mjs');
 const OAUTH = 'oauth';
 const TOKEN = 'restep-check-test';
 
