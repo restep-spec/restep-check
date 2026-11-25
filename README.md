@@ -1,8 +1,8 @@
 # restep-check
 
-Conformance checker for [Restep 1](https://restep.wubytes.com/1/) APIs. Point it at your API root:
+Conformance checker for [Restep 1](https://w3id.org/restep/1/) APIs. Point it at your API root:
 it reads the discovery document, tries every requirement your server announces (`core`, `query`,
-`writes`, `cache`, `relations`, `actions`, `oauth`, `inherit`, subcollections; draft 6) and tells you which ones it meets, which ones it breaks, and where the specification
+`writes`, `cache`, `relations`, `actions`, `oauth`, `inherit`, subcollections; draft 7) and tells you which ones it meets, which ones it breaks, and where the specification
 says so.
 
 ```sh
@@ -22,19 +22,21 @@ curl -s https://api.example.com/nope | npx restep-check --schema problem -
 
 A discovery document also goes through the rules of the text that a JSON Schema cannot express and
 that need no request: a named filter called like a key of `filter`, a subcollection whose path does
-not start with its parent's, a filter or sort key through a to-many relationship, a collection with
-`sync` without `id` in `filter` with `in`, and the rest of the `discovery.*` checks (all but those
+not start with its parent's, a filter or sort key through a to-many relationship without `quantifier`,
+a collection with `sync` without `id` in `filter` with `in`, a member outside Restep without `x-`, and the rest of the `discovery.*` checks (all but those
 that look at the server's response), plus `query.filter.lists` and `query.language.declared` when it
 declares `query`. The report gives the schema and those rules apart; with `--json`, each document
 carries `valid` (the schema), `rules` and `conforms`. It exits with 1 when the schema or a MUST fails.
 
 Exit code: 0 when no MUST fails, 1 when one does, 2 when the checker cannot run. Run
-`npx restep-check --help` for every option, and see <https://restep.wubytes.com/tools/> for what it
+`npx restep-check --help` for every option, and see <https://w3id.org/restep/tools/> for what it
 checks and what it does not.
 
 With `--writes` it creates items by copying one it read. If your API has unique fields, give it
 bodies that differ: repeat `--fixture` for several bodies, used in turn, or put `{{n}}` in a string,
-which becomes a value unique to each POST:
+which becomes a value unique to each POST. A collection that takes files (`upload`) gets a small file
+of a declared type; one whose client-chosen ids must name something gets the copied item's id under
+another parent item, where it is free:
 
 ```sh
 npx restep-check http://localhost:8080/ --writes --fixture 'stations={"code":"RC-{{n}}","name":"Test {{n}}"}'

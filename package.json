@@ -1,6 +1,6 @@
 {
   "name": "restep-check",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "description": "Conformance checker for Restep 1 APIs (core, query, writes, cache, relations, actions, oauth, inherit) and validator for its JSON Schemas",
   "keywords": ["restep", "rest", "api", "conformance", "http", "json-schema", "linter"],
   "homepage": "https://restep.wubytes.com/tools/",
